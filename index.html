@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>para sara💕</title>
+    <style>
+        :root {
+            --neon-pink: #ff00e6;
+            --neon-cyan: #00fff0;
+            --neon-yellow: #fff500;
+        }
+        * {
+            -webkit-tap-highlight-color: transparent;
+            box-sizing: border-box;
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background: black url('img/hello-kitty-background.jpg') no-repeat center center fixed;
+            background-size: cover;
+            font-family: 'Segoe UI', 'Brush Script MT', cursive, sans-serif;
+            touch-action: manipulation;
+            width: 100vw;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+        }
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.2);
+            z-index: -1;
+        }
+        .floating-text, .heart, .photo {
+            position: absolute;
+            animation: float 30s linear infinite;
+            will-change: transform;
+        }
+        .floating-text {
+            color: #ffffff;
+            font-size: 5vw;
+            font-weight: 800;
+            text-shadow:
+                0 2px 4px rgba(0, 0, 0, 0.6),
+                0 0 10px rgba(255, 255, 255, 0.15);
+            filter: none;
+            font-style: italic;
+            letter-spacing: 1px;
+            z-index: 2;
+        }
+        .heart {
+            width: 10vw;
+            height: 10vw;
+            min-width: 40px;
+            min-height: 40px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="%23ff00e6" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>') no-repeat center center;
+            background-size: contain;
+            filter: drop-shadow(0 0 6px var(--neon-pink)) drop-shadow(0 0 14px var(--neon-pink));
+            z-index: 1;
+        }
+        .photo {
+            width: 25vw;
+            height: 25vw;
+            max-width: 150px;
+            max-height: 150px;
+            min-width: 80px;
+            min-height: 80px;
+            object-fit: cover;
+            border-radius: 2vw;
+            box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
+            border: 2px solid white;
+            filter: brightness(1.05);
+            z-index: 3;
+        }
+        @keyframes float {
+            0% {
+                transform: translate3d(var(--x, 0), var(--y, 0), var(--z, 0)) scale(1);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            100% {
+                transform: translate3d(var(--x, 0), calc(var(--y, 0) - 200vh), var(--z, 0)) scale(1.5);
+                opacity: 0;
+            }
+        }
+        /* Lluvia: cae de arriba hacia abajo (Y) con desplazamiento X fijo */
+        @keyframes fallY {
+            0% { transform: translate3d(var(--dx, 0), -10vh, 0); opacity: 0; }
+            10% { opacity: 1; }
+            100% { transform: translate3d(var(--dx, 0), 120vh, 0); opacity: 0; }
+        }
+        .rain-text {
+            position: absolute;
+            font-weight: 800;
+            font-size: var(--fs, 3.6vw);
+            line-height: 1;
+            animation: fallY var(--dur, 6s) linear;
+            animation-fill-mode: forwards;
+            will-change: transform, opacity;
+            /* contorno blanco + sombra suave para legibilidad tipo poster */
+            text-shadow:
+                -1px 0 0 #ffffff,
+                1px 0 0 #ffffff,
+                0 -1px 0 #ffffff,
+                0 1px 0 #ffffff,
+                0 2px 6px rgba(0,0,0,0.35);
+            /* glow neón legible usando el color actual */
+            filter: drop-shadow(0 0 6px currentColor) drop-shadow(0 0 14px currentColor);
+            opacity: 0.85;
+            pointer-events: none;
+            z-index: 2;
+            left: var(--left, 50vw);
+            top: -12vh;
+        }
+        .emoji-img {
+            position: absolute;
+            width: var(--es, 6vw);
+            height: var(--es, 6vw);
+            animation: fallY var(--dur, 7s) linear;
+            animation-fill-mode: forwards;
+            will-change: transform, opacity;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+            pointer-events: none;
+            z-index: 1;
+            left: var(--left, 50vw);
+            top: -12vh;
+        }
+        .rain-photo {
+            position: absolute;
+            width: var(--size, 18vw);
+            height: auto;
+            max-width: 160px;
+            border-radius: 1.2vw;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.45);
+            border: 2px solid rgba(255,255,255,0.85);
+            animation: fallY var(--dur, 7.5s) linear;
+            animation-fill-mode: forwards;
+            left: var(--left, 50vw);
+            top: -12vh;
+            pointer-events: none;
+            z-index: 2;
+        }
+        @keyframes neonPulse {
+            0%, 100% { box-shadow: 0 0 6px var(--neon-cyan), 0 0 14px var(--neon-cyan), inset 0 0 8px rgba(0,255,240,0.35); }
+            50% { box-shadow: 0 0 10px var(--neon-cyan), 0 0 22px var(--neon-cyan), inset 0 0 14px rgba(0,255,240,0.55); }
+        }
+        .music-control {
+            position: fixed;
+            bottom: 5vh;
+            right: 5vw;
+            background: rgba(0, 0, 0, 0.35);
+            padding: 4vw;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            border: 2px solid var(--neon-cyan);
+            box-shadow:
+                0 0 6px var(--neon-cyan),
+                0 0 14px var(--neon-cyan),
+                inset 0 0 8px rgba(0, 255, 240, 0.35);
+            animation: neonPulse 2s ease-in-out infinite;
+        }
+        .music-control img {
+            width: 8vw;
+            height: 8vw;
+            min-width: 30px;
+            min-height: 30px;
+            filter: invert(1) drop-shadow(0 0 6px var(--neon-cyan)) drop-shadow(0 0 14px var(--neon-cyan));
+        }
+        .start-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+        .start-overlay h2 {
+            color: #ffffff;
+            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.7);
+            letter-spacing: 0.5px;
+            margin-bottom: 12px;
+        }
+        .start-overlay p {
+            color: #f0f0f0;
+            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
+            max-width: 90vw;
+        }
+        .start-button {
+            margin-top: 20px;
+            padding: 15px 30px;
+            background: rgba(0, 0, 0, 0.25);
+            border: 2px solid var(--neon-pink);
+            border-radius: 50px;
+            color: #ffffff;
+            font-size: 1.2rem;
+            cursor: pointer;
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            transition: all 0.3s;
+            box-shadow:
+                0 0 6px var(--neon-pink),
+                0 0 16px var(--neon-pink),
+                inset 0 0 8px rgba(255,0,230,0.25);
+        }
+        .start-button:hover {
+            box-shadow:
+                0 0 10px var(--neon-pink),
+                0 0 22px var(--neon-pink),
+                inset 0 0 14px rgba(255,0,230,0.45);
+        }
+        .start-button:active {
+            transform: scale(0.95);
+            background: rgba(255, 0, 230, 0.15);
+        }
+    </style>
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="theme-color" content="#000000">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <meta name="theme-color" content="#000000">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+</head>
+<body>
+    <audio id="bgMusic" loop>
+        <source src="genesis.mp3" type="audio/mpeg">
+        Tu navegador no soporta el elemento de audio.
+    </audio>
+    <div class="music-control" id="musicToggle">
+        <img src="https://cdn-icons-png.flaticon.com/512/3669/3669483.png" alt="Music control">
+    </div>
+    <div class="start-overlay" id="startOverlay">
+        <h2>Para sara💕</h2>
+        <p>Toca comenzar para vivir esta experiencia muy especial</p>
+        <div class="start-button" id="startButton">Comenzar</div> 
+    </div>
+    <script>
+        const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        const body = document.body;
+        const phrases = [
+            "¡Feliz Cumpleaños!",
+            "Bella",
+            "Me fascinas",
+            "Tus rizos me encantan",
+            "Mi princesa",
+            "Eres mi paz",
+            "Mi todo",
+            "Te adoro",
+            "Mi niña linda",
+            "Mi universo",
+            "Eres magia",
+            "Mi Persona Favorita",
+            "Mi Princesa",
+            "Siempre contigo",
+            "Mi corazón",
+            "Mi alegría",
+            "Mi Melodia",
+            "Mi vida",
+            "Mi sol",
+            "13-09-2009"
+        ];
+        const imageUrls = [
+            "img/foto1.jpg",
+            "img/foto2.jpg",
+            "img/foto3.jpg",
+            "img/foto4.jpg",
+            "img/foto5.jpg",
+            "img/foto6.jpg",
+            "img/foto7.jpg",
+            "img/foto8.jpg",
+            "img/foto9.jpg",
+            "img/foto10.jpg"
+        ];
+        const music = document.getElementById('bgMusic');
+        const musicToggle = document.getElementById('musicToggle');
+        const startOverlay = document.getElementById('startOverlay');
+        const startButton = document.getElementById('startButton');
+        let isPlaying = false;
+        let animationStarted = false;
+        function startExperience() {
+            if (animationStarted) return;
+            startOverlay.style.display = 'none';
+            animationStarted = true;
+            startMusic();
+            // Solo lluvia de frases/emojis (sin elementos flotantes blancos)
+        }
+        function startMusic() {
+            if (isPlaying) return;
+            music.volume = 0.7;
+            if (isMobile) {
+                music.play()
+                    .then(() => {
+                        isPlaying = true;
+                        musicToggle.innerHTML = '<img src="https://cdn-icons-png.flaticon.com/512/3669/3669483.png" alt="Music control">';
+                    })
+                    .catch(error => {
+                        console.error("Error al reproducir música:", error);
+                    });
+                return;
+            }
+            music.play()
+                .then(() => {
+                    isPlaying = true;
+                    musicToggle.innerHTML = '<img src="https://cdn-icons-png.flaticon.com/512/3669/3669483.png" alt="Music control">';
+                })
+                .catch(error => {
+                    console.error("Error al reproducir música:", error);
+                });
+        }
+        startButton.addEventListener('click', startExperience);
+        musicToggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            e.preventDefault();
+            if (isPlaying) {
+                music.pause();
+                musicToggle.innerHTML = '<img src="https://cdn-icons-png.flaticon.com/512/7960/7960808.png" alt="Music control">';
+            } else {
+                music.play()
+                    .then(() => {
+                        musicToggle.innerHTML = '<img src="https://cdn-icons-png.flaticon.com/512/3669/3669483.png" alt="Music control">';
+                    })
+                    .catch(error => {
+                        console.error("Error al reanudar música:", error);
+                    });
+            }
+            isPlaying = !isPlaying;
+        });
+        // Mostrar overlay siempre al cargar; se inicia al pulsar "Empezar"
+        // Desactivado: elementos flotantes blancos y fotos
+        function initFloatingElements() { /* intencionalmente vacío */ }
+        // Lluvia de letras, emojis y fotos (sin repetición inmediata de fotos)
+        (function initRain() {
+            const palette = ["#ff4d4d", "#ffd166", "#06d6a0", "#118ab2", "#c77dff", "#f72585"];
+            const words = phrases; // usa tus frases en lugar de letras sueltas
+            // Twemoji CDN (estilo uniforme tipo "emoji de Twitter")
+            const twemojiBase = 'https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/';
+            const emojiCodes = ['1f60d','1f970','2728','1f496','1f338','1f4ab','1f451','1f31f','1f49d','1f339'];
+            const rainInterval = isMobile ? 700 : 350;
+            const maxActive = isMobile ? 25 : 60;
+            let active = 0;
+            let photoQueue = [];
+            function shuffle(arr){ for(let i=arr.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [arr[i],arr[j]]=[arr[j],arr[i]]; } return arr; }
+            function refillPhotoQueue(){ photoQueue = shuffle(imageUrls.slice()); }
+            refillPhotoQueue();
+            function spawnOne() {
+                if (active >= maxActive) return;
+                active++;
+                const roll = Math.random();
+                let el;
+                if (roll < 0.35) { // 35% emojis (Twemoji)
+                    el = document.createElement('img');
+                    el.className = 'emoji-img';
+                    const code = emojiCodes[Math.floor(Math.random() * emojiCodes.length)];
+                    el.src = twemojiBase + code + '.svg';
+                    el.alt = 'emoji';
+                    el.loading = 'lazy';
+                    el.style.setProperty('--es', (isMobile ? 7 : 6) + 'vw');
+                } else if (roll < 0.65) { // 30% fotos
+                    el = document.createElement('img');
+                    el.className = 'rain-photo';
+                    if (photoQueue.length === 0) refillPhotoQueue();
+                    el.src = photoQueue.shift();
+                    el.loading = 'lazy';
+                    el.style.setProperty('--size', (isMobile ? 22 : 18) + 'vw');
+                } else { // 35% palabras de colores
+                    el = document.createElement('div');
+                    el.className = 'rain-text';
+                    el.textContent = words[Math.floor(Math.random() * words.length)];
+                    el.style.color = palette[Math.floor(Math.random() * palette.length)];
+                    el.style.setProperty('--fs', (isMobile ? (3.2 + Math.random()*2.2) : (2.6 + Math.random()*2)) + 'vw');
+                }
+                const left = 5 + Math.random() * 90; // margen 5vw a 95vw
+                el.style.setProperty('--left', left + 'vw');
+                // Duración: fotos ligeramente más lentas
+                const baseDur = Math.random() * 4 + 5; // 5s a 9s
+                const isPhoto = el.classList.contains('rain-photo');
+                const dur = isPhoto ? baseDur + (isMobile ? 1.5 : 2.5) : baseDur;
+                el.style.setProperty('--dur', dur + 's');
+                // ligerísima deriva horizontal para evitar alineaciones
+                const drift = (Math.random() - 0.5) * 2 + 'vw';
+                el.style.setProperty('--dx', drift);
+                body.appendChild(el);
+                setTimeout(() => {
+                    if (el.parentNode) el.parentNode.removeChild(el);
+                    active--;
+                }, 10000);
+            }
+            setInterval(spawnOne, rainInterval);
+        })();
+        document.addEventListener('gesturestart', function (e) {
+            e.preventDefault();
+        });
+        document.addEventListener('touchmove', function (e) {
+            if (e.touches.length > 1) {
+                e.preventDefault();
+            }
+        }, { passive: false });
+    </script>
+</body>
+</html>
